@@ -20,6 +20,10 @@ ShoppingCart.prototype = {
 
   computeTax(country) {
     return (this.subtotal() * taxes[country])
+  },
+
+  total(country) {
+    return this.subtotal() + this.computeTax(country)
   }
 }
 

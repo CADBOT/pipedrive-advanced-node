@@ -40,10 +40,27 @@ describe('shoppingCart total', function() {
       return 100
     })
     expect(cart.computeTax('denmark')).to.equal(10)
+    expect(cart.subtotal.called).to.eql(true)
     cart.subtotal.restore()
   })
 
   it('can compute the sales tax for norway', function() {
     expect(cart.computeTax('norway')).to.equal(20)
+  })
+
+  it('can compute the total for denmark', function() {
+    sinon.stub(cart, 'subtotal', function() {
+      return 100
+    })
+    sinon.stub(cart, 'computeTax', function() {
+      return 10
+    })
+    
+    expect(cart.total('denmark')).to.eql(110)
+    expect(cart.subtotal.called).to.eql(true)
+    expect(cart.computeTax.called).to.eql(true)
+    expect(cart.computeTax.calledWith('denmark')).to.eql(true)
+    cart.computeTax.restore()
+    cart.subtotal.restore()
   })
 })
