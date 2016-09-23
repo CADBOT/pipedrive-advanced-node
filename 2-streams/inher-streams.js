@@ -1,4 +1,5 @@
 var Readable = require('stream').Readable
+var Writable = require('stream').Writable
 
 // es6 syntax
 class ArrayStreamer extends Readable {
@@ -32,3 +33,35 @@ arrayStream.pipe(arrayFile)
  * 10 minutes
  *
  */
+
+class ArrayStreamWriter extends Writable {
+  constructor(options) {
+    super(options)
+    this.sink = [] // low level resource
+  }
+
+  _write(chunk, encoding, callback) {
+    this.sink.push(chunk) // no real relation to the this.push from a Read stream
+    console.log(this.sink)
+    callback()
+  }
+}
+
+var arrayWriter = new ArrayStreamWriter()
+arrayStream.pipe(arrayWriter)
+
+/*
+ * flatten the _write method above so we have an array of Numbers, instead of 
+ * an Array containing a Buffer containing numbers...
+ *
+ * ObjectStreamWriter
+ *
+ */
+
+
+
+
+
+
+
+
