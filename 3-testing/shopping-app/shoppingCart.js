@@ -1,3 +1,8 @@
+var taxes = {
+  denmark: 0.10,
+  norway: 0.20
+}
+
 function ShoppingCart() {
   this.items = []
 }
@@ -5,6 +10,16 @@ function ShoppingCart() {
 ShoppingCart.prototype = {
   add(item) {
     this.items.push(item)
+  },
+
+  subtotal() {
+    return this.items.reduce(function(total, item) {
+      return total + item.cost
+    }, 0)
+  },
+
+  computeTax(country) {
+    return (this.subtotal() * taxes[country])
   }
 }
 
