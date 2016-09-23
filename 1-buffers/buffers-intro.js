@@ -37,8 +37,8 @@ buff = new Buffer(10)
 buff = new Buffer(2)
 buff.writeUInt8(72) // write to the 0th byte
 buff.writeUInt8(73, 1) // write to the 1st byte
-console.log(buff)
-console.log(buff.toString())
+//console.log(buff)
+//console.log(buff.toString())
 
 /*
  * 7 Minutes
@@ -51,3 +51,95 @@ console.log(buff.toString())
  * (if you have no ascii chars in your name, write something else
  * instead
  */
+
+buff = new Buffer([65, 65, 60])
+//console.log(buff.toString())
+
+// we can use bracket notation to read individual bytes
+/*
+console.log(buff[0])
+console.log(buff[1])
+console.log(buff[2])
+*/
+
+buff[1] = 66
+//console.log(buff.toString())
+
+// What if we don't write to every byte?
+buff = new Buffer(10)
+buff.write('hello!')
+//console.log(buff.toString())
+
+buff = Buffer.alloc(10)
+buff.write('hello!')
+//console.log(buff)
+//console.log(buff.toString())
+
+// compare the two
+//console.log(new Buffer(10))
+//console.log(Buffer.alloc(10))
+
+// technically speaking "new Buffer()" is deprecated
+
+// how do we write a string like before?
+buff = Buffer.from('write this string')
+//console.log(buff.toString())
+
+// how do we write an array like before?
+buff = Buffer.from([65, 65, 50])
+//console.log(buff.toString())
+
+// 2nd parameter specifies the encoding. Defaults to UTF-8 (fun side note JavaScript strings are UTF-2)
+buff = new Buffer('dXNlcm5hbwU6cGFzc3dvcmQ=', 'base64')
+//console.log(buff.toString())
+
+buff = Buffer.from('dXNlcm5hbwU6cGFzc3dvcmQ=', 'base64')
+//console.log(buff.toString())
+
+/*
+ * We can write things other than 8 bit ints
+ *
+ * For example we can write 16bit ints
+ * if I wanted to write hi in one go
+ * h => 48(hex) => 01001000
+ * i => 49(hex) => 01001001
+ *
+ * if we concat the bits together
+ * 01001000 01001000 => 18505
+ */
+
+buff = Buffer.alloc(2)
+buff.writeUInt16BE(18505) // Big Endian (we'll discuss that shortly)
+console.log(buff)
+console.log(buff.toString())
+// same thing as if we did
+buff.writeUInt8(72) // 01001000 => 72(decimal)
+buff.writeUInt8(73, 1)
+console.log(buff)
+console.log(buff.toString())
+
+/*
+ *
+ * 5 Minutes
+ *
+ * Take whatever you wrote in the prior lab. And this time write it using
+ * Unsigned 16 big Big Endian integers (if possible)
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
