@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 var taxes = {
   denmark: 0.10,
   norway: 0.20
@@ -24,6 +26,12 @@ ShoppingCart.prototype = {
 
   total(country) {
     return this.subtotal() + this.computeTax(country)
+  },
+
+  serialize(path, cb) {
+    fs.writeFile(path, this.items.toString(), function(err) {
+      cb(err)
+    })
   }
 }
 

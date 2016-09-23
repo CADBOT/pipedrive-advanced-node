@@ -64,3 +64,20 @@ describe('shoppingCart total', function() {
     cart.subtotal.restore()
   })
 })
+
+describe('end to end tests', function() {
+  var cart
+  beforeEach(function() {
+    cart = new ShoppingCart()
+    cart.add({item: 'tv', cost: 50})
+    cart.add({item: 'book', cost: 50})
+  })
+  it('can serialize the Shopping Cart', function(done) {
+    cart.serialize('/tmp/products.txt', function(err) {
+      expect(err).to.eql(null)
+      done()
+    })
+  })
+})
+
+
