@@ -13,24 +13,17 @@ var days = {
 }
 
 
-/*
-function attendance(day, record) {
-  var dayInt = days[day] 
-  var newRecord = record | dayInt
-  return newRecord
-}
-*/
 function attendance(day, record) {
   var recordNumber = record[0]
   var dayInt = days[day] 
-  var newRecord = recordNumber | dayInt
+  var newRecord = recordNumber | dayInt // | is the bitwise OR operator
   record[0] = newRecord
 }
 
-var monTues = new Buffer(1)
-monTues[0] = 3
+var monTues = new Buffer(1) // gives us 1 byte to work with. 
+monTues[0] = 3 // 0000 0011
 attendance('thur', monTues)
-//console.log(monTues)
+//console.log(monTues) 0000 1011(binary) => 11(decimal)
 
 /*
 * @record is a buffer of size 1 (just 1 byte). That represents that employees
@@ -39,15 +32,11 @@ attendance('thur', monTues)
 */
 function printDaysAttended(record) {
   var recNumber = record[0]
-  var daysAttended = {}
   Object.keys(days).forEach(function(day) {
-    if (days[day] & recNumber) {
+    if (days[day] & recNumber) { // & is bitwise and
       console.log('attended ' + day)
     }
   })
 }
 
-//console.log(monTues[0])
 printDaysAttended(monTues)
-
-
